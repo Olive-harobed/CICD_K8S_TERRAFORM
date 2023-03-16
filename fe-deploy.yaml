@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: oliveharobed/frontend:v1
+          image: oliveharobed/frontend:v2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
