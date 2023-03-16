@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: frontend-deployment
+  namespace: mywebapp
+  labels:
+    app: frontend-deployment
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-pod
+
+  template:
+    metadata:
+      name: frontend-pod
+      labels:
+        app: frontend-pod
+
+    spec:
+      containers:
+        - name: frontend-container
+          image: oliveharobed/frontend:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+            

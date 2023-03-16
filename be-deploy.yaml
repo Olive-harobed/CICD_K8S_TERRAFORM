@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+  namespace: mywebapp
+  labels:
+    app: node-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-pod
+  template:
+    metadata:
+      name: node-pod
+      labels:
+        app: node-pod
+    spec:
+      containers:
+        - name: node-container
+          image: oliveharobed/backend:v1
+          ports:
+            - containerPort: 3000
+
