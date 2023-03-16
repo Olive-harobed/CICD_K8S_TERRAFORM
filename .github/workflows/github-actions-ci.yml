@@ -16,9 +16,6 @@ jobs:
       uses: azure/setup-kubectl@v3.0
       with:
         version: 'v1.25.0' # default is latest stable
-      id: install
-
-      with:
         install-metrics-apiserver: true      
 
     - name: Configure AWS Credentials
