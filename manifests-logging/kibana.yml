@@ -31,7 +31,7 @@ metadata:
     name: kibana
   namespace: kube-system
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 5601
     targetPort: 5601
