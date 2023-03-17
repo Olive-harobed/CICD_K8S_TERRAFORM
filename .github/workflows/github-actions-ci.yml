@@ -34,36 +34,5 @@ jobs:
       run: kubectl apply -f sockapp/
     - name: Set up monitoring
       run: kubectl apply -f manifests-monitoring/        
-    # - name: Install Helm
-    #   uses: azure/setup-helm@v3
-    #   with:
-    #     version: 'v3.11.1'
-    #     id: install
-    # - name: Add Prometheus Helm repository
-    #   run: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-    # - name: Install Prometheus with Helm
-    #   run: |
-    #     if ! kubectl get namespace monitoring > /dev/null 2>&1; then
-    #       kubectl create namespace monitoring
-    #     fi
-    #     if ! helm list -n monitoring | grep prometheus > /dev/null 2>&1; then
-    #       helm install prometheus prometheus-community/prometheus --namespace monitoring -f values.yaml
-    #     fi
-    #   continue-on-error: true    
-    # - name: Expose Prometheus with a LoadBalancer
-    #   run: kubectl apply -f prometheus-svc.yaml
-    # - name: Add Grafana Helm Repository
-    #   run: helm repo add grafana https://grafana.github.io/helm-charts
-    # - name: Set Grafana admin password
-    #   run: |
-    #     if ! kubectl get namespace monitoring > /dev/null 2>&1; then
-    #       kubectl create namespace monitoring
-    #     fi
-    #     if ! helm list -n monitoring | grep grafana > /dev/null 2>&1; then
-    #       helm install grafana grafana/grafana --namespace monitoring --create-namespace --set adminPassword=${{ secrets.GRAFANA_ADMIN_PASSWORD }},persistence.enabled=false,persistence.type=emptyDir
-    #     else
-    #       helm upgrade grafana grafana/grafana --namespace monitoring --set adminPassword=${{ secrets.GRAFANA_ADMIN_PASSWORD }},persistence.enabled=false,persistence.type=emptyDir
-    #     fi
-    #   continue-on-error: true    
-    # - name: Expose Grafana with a LoadBalancer
-    #   run: kubectl apply -f grafana-svc.yaml
+    - name: Set up logging
+      run: kubectl apply -f manifests-logging/ 
