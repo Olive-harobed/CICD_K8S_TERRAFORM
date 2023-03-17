@@ -28,9 +28,10 @@ jobs:
     - name: Update kube config
       run: aws eks update-kubeconfig --name test
     
-    - name: Deploy to EKS
+    - name: Deploy webapp to EKS
       run: kubectl apply -f webapp/  
- 
+    - name: Deploy sockapp to EKS
+      run: kubectl apply -f sockapp/  
     # - name: Install Helm
     #   uses: azure/setup-helm@v3
     #   with:
