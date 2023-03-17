@@ -29,43 +29,38 @@ jobs:
       run: aws eks update-kubeconfig --name test
     
     - name: Deploy to EKS
-      run: |
-        kubectl apply -f be-deploy.yaml
-        kubectl apply -f be-service.yaml
-        kubectl apply -f fe-deploy.yaml
-        kubectl apply -f fe-service.yaml   
-        kubectl apply -f db-deploy.yaml
-        kubectl apply -f db-service.yaml      
-    - name: Install Helm
-      uses: azure/setup-helm@v3
-      with:
-        version: 'v3.11.1'
-        id: install
-    - name: Add Prometheus Helm repository
-      run: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-    - name: Install Prometheus with Helm
-      run: |
-        if ! kubectl get namespace monitoring > /dev/null 2>&1; then
-          kubectl create namespace monitoring
-        fi
-        if ! helm list -n monitoring | grep prometheus > /dev/null 2>&1; then
-          helm install prometheus prometheus-community/prometheus --namespace monitoring -f values.yaml
-        fi
-      continue-on-error: true    
-    - name: Expose Prometheus with a LoadBalancer
-      run: kubectl apply -f prometheus-svc.yaml
-    - name: Add Grafana Helm Repository
-      run: helm repo add grafana https://grafana.github.io/helm-charts
-    - name: Set Grafana admin password
-      run: |
-        if ! kubectl get namespace monitoring > /dev/null 2>&1; then
-          kubectl create namespace monitoring
-        fi
-        if ! helm list -n monitoring | grep grafana > /dev/null 2>&1; then
-          helm install grafana grafana/grafana --namespace monitoring --create-namespace --set adminPassword=${{ secrets.GRAFANA_ADMIN_PASSWORD }},persistence.enabled=false,persistence.type=emptyDir
-        else
-          helm upgrade grafana grafana/grafana --namespace monitoring --set adminPassword=${{ secrets.GRAFANA_ADMIN_PASSWORD }},persistence.enabled=false,persistence.type=emptyDir
-        fi
-      continue-on-error: true    
-    - name: Expose Grafana with a LoadBalancer
-      run: kubectl apply -f grafana-svc.yaml
+      run: kubectl apply -f webapp/  
++ 
+    # - name: Install Helm
+    #   uses: azure/setup-helm@v3
+    #   with:
+    #     version: 'v3.11.1'
+    #     id: install
+    # - name: Add Prometheus Helm repository
+    #   run: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    # - name: Install Prometheus with Helm
+    #   run: |
+    #     if ! kubectl get namespace monitoring > /dev/null 2>&1; then
+    #       kubectl create namespace monitoring
+    #     fi
+    #     if ! helm list -n monitoring | grep prometheus > /dev/null 2>&1; then
+    #       helm install prometheus prometheus-community/prometheus --namespace monitoring -f values.yaml
+    #     fi
+    #   continue-on-error: true    
+    # - name: Expose Prometheus with a LoadBalancer
+    #   run: kubectl apply -f prometheus-svc.yaml
+    # - name: Add Grafana Helm Repository
+    #   run: helm repo add grafana https://grafana.github.io/helm-charts
+    # - name: Set Grafana admin password
+    #   run: |
+    #     if ! kubectl get namespace monitoring > /dev/null 2>&1; then
+    #       kubectl create namespace monitoring
+    #     fi
+    #     if ! helm list -n monitoring | grep grafana > /dev/null 2>&1; then
+    #       helm install grafana grafana/grafana --namespace monitoring --create-namespace --set adminPassword=${{ secrets.GRAFANA_ADMIN_PASSWORD }},persistence.enabled=false,persistence.type=emptyDir
+    #     else
+    #       helm upgrade grafana grafana/grafana --namespace monitoring --set adminPassword=${{ secrets.GRAFANA_ADMIN_PASSWORD }},persistence.enabled=false,persistence.type=emptyDir
+    #     fi
+    #   continue-on-error: true    
+    # - name: Expose Grafana with a LoadBalancer
+    #   run: kubectl apply -f grafana-svc.yaml
