@@ -7,7 +7,7 @@ metadata:
     app: grafana
     component: core
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - protocol: TCP
     port: 80
