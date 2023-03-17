@@ -31,7 +31,7 @@ jobs:
     - name: Deploy webapp to EKS
       run: kubectl apply -f webapp/  
     - name: Deploy sockapp to EKS
-      run: kubectl apply -f manifests/  
+      run: kubectl apply -f sockapp/  
     # - name: Install Helm
     #   uses: azure/setup-helm@v3
     #   with:
