@@ -38,7 +38,8 @@ jobs:
     - name: Terraform fmt
       id: fmt
       run: terraform fmt -check
-      continue-on-error: true      
+      continue-on-error: true    
+      working-directory: ./terraform        
               
     - name: Terraform Init
       id: init
@@ -48,11 +49,12 @@ jobs:
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
+      working-directory: ./terraform      
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
-
+      working-directory: ./terraform
 
     - name: Update kube config
       run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }}
