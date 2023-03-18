@@ -37,4 +37,4 @@ jobs:
     - name: Set up CRD
       run: kubectl apply -f https://raw.githubusercontent.com/fluent/fluentd-kubernetes-daemonset/master/fluentd-daemonset-elasticsearch-rbac.yaml  
     - name: Set up logging
-      run: kubectl apply -f manifests-logging/ 
+      run: kubectl apply -f logging/ 
