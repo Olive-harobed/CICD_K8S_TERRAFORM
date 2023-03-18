@@ -26,16 +26,33 @@ jobs:
         aws-region: us-east-1
 
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: "v2.0.3"
+        terraform_version: "v1.1.7"
 
+    - name: Terraform Cloud Validation
+      uses: hashicorp/setup-terraform@v2
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}          
+        
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: true      
+              
     - name: Terraform Init
+      id: init
       run: terraform init
       working-directory: ./terraform
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+
     - name: Terraform Apply
-      run: terraform apply --auto-approve
-      working-directory: ./terraform
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false
+
 
     - name: Update kube config
       run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }}

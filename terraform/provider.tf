@@ -3,7 +3,7 @@ terraform {
     organization = "harobed"
 
     workspaces {
-      name = "k8s-space"
+      name = "cicd"
     }
   }
 }
