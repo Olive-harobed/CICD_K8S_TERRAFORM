@@ -1,9 +1,9 @@
-variable "aws_access_key" {
-  default = "AKIARB7W6ZDWY4V5PL6W"
+variable "AWS_ACCESS_KEY_ID" {
+  description = "AWS access key ID"
 }
 
-variable "aws_secret_key" {
-  default = "1ahmXIpXscCuM7ZpugtOwY9pgixyNCWLuzE32ESY"
+variable "AWS_SECRET_ACCESS_KEY" {
+  description = "AWS secret access key"
 }
 
 variable "region" {
