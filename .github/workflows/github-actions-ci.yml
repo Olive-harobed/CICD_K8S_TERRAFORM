@@ -25,8 +25,20 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: "v2.0.3"
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ./terraform
+    - name: Terraform Apply
+      run: terraform apply --auto-approve
+      working-directory: ./terraform
+
     - name: Update kube config
-      run: aws eks update-kubeconfig --name test
+      run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }}
     
     - name: Deploy webapp to EKS
       run: kubectl apply -f webapp/  
