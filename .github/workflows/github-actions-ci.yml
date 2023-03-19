@@ -64,7 +64,7 @@ jobs:
 
     - name: Update kube config 
       env:
-        CLUSTER_NAME: my-eks-cluster    
+        CLUSTER_NAME: eks-cluster    
       run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region us-east-1
     
     - name: Deploy webapp to EKS
