@@ -62,8 +62,8 @@ jobs:
       run: terraform apply -auto-approve -input=false -var "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
       working-directory: ./terraform
 
-    - name: Update kube config
-      run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }}
+    - name: Update kube config 
+      run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region us-east-1
     
     - name: Deploy webapp to EKS
       run: kubectl apply -f webapp/  
