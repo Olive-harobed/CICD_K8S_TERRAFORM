@@ -54,3 +54,4 @@ resource "aws_eks_node_group" "nodes_group" {
     aws_iam_role_policy_attachment.amazon_eks_cni_policy_general
   ]
 }
+
