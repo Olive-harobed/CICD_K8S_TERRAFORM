@@ -69,6 +69,8 @@ jobs:
     
     - name: Deploy webapp to EKS
       run: kubectl apply -f webapp/  
+    - name: Setup Ingress for webapp
+      run: kubectl apply -f ingress/        
     - name: Deploy sockapp to EKS
       run: kubectl apply -f sockapp/
     - name: Set up monitoring
