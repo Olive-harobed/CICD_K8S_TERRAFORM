@@ -40,6 +40,8 @@ After the applications are deployed, access the Kibana dashboard to view the log
 ### Step 5: Testing the Webapp
 The Node.js webapp can be accessed at `portfolio.deb-ops.live` and tested by the /api endpoint.
 ![image](https://user-images.githubusercontent.com/79452458/228980772-bdc9bbfc-591e-4720-b86c-52a3453f202c.png)
+![image](https://user-images.githubusercontent.com/79452458/229325949-aa660efd-c73b-4c7e-8279-78fd1bd788e6.png)
+
 
 
 ### Step 6: Testing the Sockapp
